@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>雪 - by Skyge</title>
+    <title>断桥残雪 - By Skyge</title>
     <!-- <script src="lib.js"></script> -->
     <style>
         * {
@@ -12,6 +12,8 @@
 
         body {
             overflow: hidden;
+            background-image: url("snow.jpg");		/*背景照片位置*/
+            background-size:100% 100%;				/*使图片适应窗口大小*/
         }
     </style>
 </head>
@@ -20,23 +22,23 @@
     <script>
         window.onload = function () {
             var Canvas = function (w, h) {
-                this.width = w;
-                this.height = h;
+                this.width = w;		
+                this.height = h;	
             }
             Canvas.prototype = {
                 init: function () {
-                    var oC = document.createElement("canvas");
+                    var oC = document.createElement("canvas");		//追加元素canvas
                     oC.setAttribute("width", this.width);
                     oC.setAttribute("height", this.height);
                     oC.setAttribute("id", "canvas");
-                    oC.style.backgroundColor = "#000";
+                    // oC.style.backgroundColor = "#000";
                     document.body.appendChild(oC);
                 }
             }
-            var curWinWidth = window.innerWidth,
-                curWinHeight = window.innerHeight;
+            var curWinWidth = window.innerWidth,	//赋值为浏览器的宽度
+                curWinHeight = window.innerHeight;	//赋值为浏览器的高度
             var oCanvas = new Canvas(curWinWidth, curWinHeight);
-            oCanvas.init();
+            oCanvas.init();		//调用oCanvas对象的init方法
 
             var oC = document.querySelector("#canvas");
             var width = oC.width, height = oC.height, oGc = oC.getContext("2d");
@@ -48,13 +50,13 @@
 
             }
             Snow.prototype = {
-                init: function () {
+                init: function () {				//初始化雪花的位置、半径、速度
                     this.x = random(0, width);
                     this.y = 0;
                     this.radius = random(1, 5);
                     this.speed = random(2, 5);
                 },
-                draw: function (cxt) {
+                draw: function (cxt) {			//绘制雪花
                     cxt.beginPath();
                     cxt.fillStyle = "white";
                     cxt.arc(this.x, this.y + this.radius, this.radius, 0, Math.PI * 2, false);
@@ -62,7 +64,7 @@
                     cxt.closePath();
                     this.update(cxt);
                 },
-                update: function (cxt) {
+                update: function (cxt) {		//雪花下落边界判断
                     if (this.y < height - this.radius) {
                         this.y += this.speed;
                     } else {
